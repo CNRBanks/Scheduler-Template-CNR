@@ -5,6 +5,7 @@ $("#2a").text(weekDay);
 // loop for time frame
 for (var i = 6; i < 24; i++) {
     var timeString = ''
+    var time = ''
     if (i < 12) {
         timeString = `${i}AM`
     } else if (i === 12) {
@@ -13,12 +14,23 @@ for (var i = 6; i < 24; i++) {
     else (
         timeString = `${i - 11}PM`
     )
-
-
-    $('#time-blocks').append(`<div class="row time-block">
+    var currentHour = moment().hours()
+    if (i < currentHour) {
+        time = 'past'
+    } else if (i == currentHour) {
+        time = 'present'
+    } else {
+        time = 'future'
+    
+    }
+    $('#time-blocks').append(`<div class="row time-block ${time}">
     <div class="col-md-1 hour">${timeString}</div>
-    <div class="col"><textarea class="col-md-10 description present"></textarea></div>
+    <div class="col" value=${i}><textarea class="col-md-10 description ${time}"></textarea></div>
+
     <div class="col"><button class="saveBtn">Save</button></div>
 
+    
+
     </div>`)
+
 }
