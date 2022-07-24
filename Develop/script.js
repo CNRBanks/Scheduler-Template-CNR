@@ -12,7 +12,7 @@ for (var i = 9; i < 18; i++) {
         timeString = `${i}PM`
     }
     else (
-        timeString = `${i - 11}PM`
+        timeString = `${i - 12}PM`
     )
     var currentHour = moment().hours()
     if (i < currentHour) {
@@ -23,7 +23,7 @@ for (var i = 9; i < 18; i++) {
         time = 'future'
     
     }
-    $('#time-blocks').append(`<div class="row time-block ${time}">
+    $('#time-blocks').append(`<div class="row time-block ${time}" id=${i}>
     <div class="col-md-1 hour">${timeString}</div>
     <div class="col" value=${i}><textarea class="storage col-md-10 description ${time}"></textarea></div>
 
@@ -35,13 +35,33 @@ for (var i = 9; i < 18; i++) {
 
 }
 
-const storageInput = document.querySelector('.storage');
+const storageInput = document.querySelectorAll('.storage');
 const text = document.querySelector('.text');
-const button = document.querySelector('.saveBtn');
+const allButtons = document.querySelectorAll('.saveBtn');
+const storedInput = localStorage.getItem('textinput')
 
-const saveToLocalStorage = () => {
 
-    localStorage.setItem('textinput', storage.textContent) // does not work
+const saveToLocalStorage = (e) => {
+    const parentNode = e.target.parentNode.parentNode
+    const textValue = parentNode.querySelector("textarea").value
+    localStorage.setItem(parentNode.id,textValue) 
+ }
+
+ if(storageInput) (e) => {
+    const parentNode = e.target.parentNode.parentNode
+    const textValue = parentNode.querySelector("textarea").value
+    parentNode.id, textValue = storedInput
 }
 
-button.addEventListener('click', saveToLocalStorage)
+// const saveToLocalStorage = () => {
+
+//     localStorage.setItem('textinput', storageInput.value) // does not work
+// }
+
+// button.addEventListener('click', saveToLocalStorage)
+
+allButtons.forEach((btn) => {
+    btn.addEventListener('click', saveToLocalStorage)
+})
+
+console.log(storageInput)
