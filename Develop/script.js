@@ -1,9 +1,10 @@
 // Displays current date
-var weekDay = moment("1-1-2022", "M-D-YYYY").format("ddd MMM Do, YYYY");
-$("#2a").text(weekDay);
+var dayYear = moment().format('ddd MMM Do, YYYY');
+$("#2a").text(dayYear);
 
 // loop for time frame
 for (var i = 9; i < 18; i++) {
+    var storedValue = localStorage.getItem(i)||" "
     var timeString = ''
     var time = ''
     if (i < 12) {
@@ -25,8 +26,7 @@ for (var i = 9; i < 18; i++) {
     }
     $('#time-blocks').append(`<div class="row time-block ${time}" id=${i}>
     <div class="col-md-1 hour">${timeString}</div>
-    <div class="col" value=${i}><textarea class="storage col-md-10 description ${time}"></textarea></div>
-
+    <div class="col" ><textarea value=${storedValue} placeholder=${storedValue} class="storage col-md-10 description ${time}"></textarea></div
     <div class="col"><button class="saveBtn">Save</button></div>
 
     
@@ -37,14 +37,18 @@ for (var i = 9; i < 18; i++) {
 
 const storageInput = document.querySelectorAll('.storage');
 const text = document.querySelector('.text');
-const allButtons = document.querySelectorAll('.saveBtn');
+const buttons = document.querySelectorAll('.saveBtn');
+
 const storedInput = localStorage.getItem('textinput')
 
 
 const saveToLocalStorage = (e) => {
     const parentNode = e.target.parentNode.parentNode
+    console.log(parentNode.getAttribute('id'))
     const textValue = parentNode.querySelector("textarea").value
-    localStorage.setItem(parentNode.id,textValue) 
+    localStorage.setItem(parentNode.id,textValue)
+
+ 
  }
 
  if(storageInput) (e) => {
@@ -60,8 +64,10 @@ const saveToLocalStorage = (e) => {
 
 // button.addEventListener('click', saveToLocalStorage)
 
-allButtons.forEach((btn) => {
+
+buttons.forEach((btn)=>{
     btn.addEventListener('click', saveToLocalStorage)
 })
+
 
 console.log(storageInput)
