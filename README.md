@@ -17,7 +17,7 @@ JavaScript Help B - https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
 ## Screenshot
 
-<img title="screenshot" src="assets/preview.png">
+<img title="screenshot" src="Assets/preview.png">
  
 ## License
 
